@@ -13,7 +13,9 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-
+Route::get('/pengguna', 'EdsController@index');
+Route::get('/isi-instrumen', 'EdsController@salin_jawaban');
+Route::post('/reset-rapor-mutu', 'EdsController@reset_rapor_mutu');
 Route::get('/articles', 'ArticleController@index');
 Route::post('/article/store', 'ArticleController@store');
 Route::get('/article/edit/{id}', 'ArticleController@getArticle');

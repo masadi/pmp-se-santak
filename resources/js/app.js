@@ -16,7 +16,7 @@ Vue.use(VueRouter);
 Vue.use(VueSweetalert2);
 Vue.use(VueAxios, axios);
 
-import ArticleIndex from './components/ArticleIndex.vue';
+import SmartEds from './components/SmartEds.vue';
 import ArticleCreate from './components/ArticleCreate.vue';
 import ArticleShow from './components/ArticleShow.vue';
 import ArticleEdit from './components/ArticleEdit.vue';
@@ -25,7 +25,7 @@ const routes = [
   {
       name: 'home',
       path: '/',
-      component: ArticleIndex
+      component: SmartEds
   },
   {
       name: 'create',
