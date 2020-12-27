@@ -2231,7 +2231,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         _this.all_pengguna = data;
         _this.nama_sekolah = data.sekolah ? data.sekolah.nama : '';
         _this.sekolah_id = data.sekolah ? data.sekolah.sekolah_id : null;
-        _this.ada_pengguna = data.length > 0 ? false : true;
+        _this.ada_pengguna = data.data.length > 0 ? false : true;
       });
     },
     resetRaporMutu: function resetRaporMutu(sekolah_id) {

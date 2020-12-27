@@ -76,7 +76,7 @@ export default {
                         this.all_pengguna = data;
                         this.nama_sekolah = (data.sekolah) ? data.sekolah.nama : ''
                         this.sekolah_id = (data.sekolah) ? data.sekolah.sekolah_id : null
-                        this.ada_pengguna = (data.length > 0) ? false : true
+                        this.ada_pengguna = (data.data.length > 0) ? false : true
                     });
         },
         resetRaporMutu(sekolah_id){
