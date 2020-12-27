@@ -13,7 +13,43 @@ use Artisan;
 class EdsController extends Controller
 {
     public function index(Request $request){
+        $npsn = [
+            '20527178',
+            '20552093',
+            '20552094',
+            '20566321',
+            '20552101',
+            '69757252',
+            '20577814',
+            '20566538',
+            '20537396',
+            '20575281',
+            '20566322',
+            '20552129',
+            '69943135',
+            '69822425',
+            '20527169',
+            '20537411',
+            '20566541',
+            '20537415',
+            '20566545',
+            '69954356',
+            '20537419',
+            '20537399',
+            '20579411',
+            '69788145',
+            '20574521',
+            '20574533',
+            '20577092',
+            '20577070',
+        ];
         $sekolah = Sekolah::first();
+        $get_sekolah = NULL;
+        if($sekolah){
+            if(in_array($sekolah->npsn, $npsn)){
+                $get_sekolah = $sekolah;
+            }
+        }
         $all_data = Pengguna::with(['peran', 'jawabans'])->withCount(['rekap_kemajuan' => function($query){
             $query->whereHas('instrumen', function($query){
                 $query->where('tingkat_instrumen_id', 3);
@@ -21,8 +57,16 @@ class EdsController extends Controller
             });
             $query->where('soft_delete', 0);
             $query->where('persentase', 100);
-        }])->where('sekolah_id', $sekolah->sekolah_id)->whereIn('peran_id', [10,53])->orderBy('peran_id')->orderBy('nama')->get();
-        return response()->json(['status' => 'success', 'data' => $all_data, 'sekolah' => $sekolah]);
+        }])->where(function($query) use ($get_sekolah){
+            if($get_sekolah){
+                $query->where('sekolah_id', $get_sekolah->sekolah_id);
+                $query->whereIn('peran_id', [10,53]);
+                $query->where('soft_delete', 0);
+            } else {
+                $query->where('peran_id', 1);
+            }
+        })->orderBy('peran_id')->orderBy('nama')->get();
+        return response()->json(['status' => 'success', 'data' => $all_data, 'sekolah' => $get_sekolah]);
     }
     public function sekolah(Request $request){
         $npsn = [

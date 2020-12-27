@@ -38,6 +38,11 @@
                                         </div>
                                     </td>
                                 </tr>
+                                <tr v-show="ada_pengguna">
+                                    <td colspan="7" class="text-center">
+                                        Sekolah tidak terdaftar untuk menggunakan aplikasi ini !!!
+                                    </td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>
@@ -56,6 +61,7 @@ export default {
           all_pengguna: {},
           nama_sekolah: null,
           sekolah_id: null,
+          ada_pengguna:false,
         }
     },
     created() {
@@ -63,14 +69,14 @@ export default {
     },
     methods: {
         getResults(page){
-
             let uri = 'api/pengguna';
             this.axios.get(uri).then(response => {
                         return response.data;
                     }).then(data => {
                         this.all_pengguna = data;
-                        this.nama_sekolah = data.sekolah.nama
-                        this.sekolah_id = data.sekolah.sekolah_id
+                        this.nama_sekolah = (data.sekolah) ? data.sekolah.nama : ''
+                        this.sekolah_id = (data.sekolah) ? data.sekolah.sekolah_id : null
+                        this.ada_pengguna = (data.length > 0) ? false : true
                     });
         },
         resetRaporMutu(sekolah_id){

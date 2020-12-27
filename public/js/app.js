@@ -2203,12 +2203,18 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       all_pengguna: {},
       nama_sekolah: null,
-      sekolah_id: null
+      sekolah_id: null,
+      ada_pengguna: false
     };
   },
   created: function created() {
@@ -2223,8 +2229,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         return response.data;
       }).then(function (data) {
         _this.all_pengguna = data;
-        _this.nama_sekolah = data.sekolah.nama;
-        _this.sekolah_id = data.sekolah.sekolah_id;
+        _this.nama_sekolah = data.sekolah ? data.sekolah.nama : '';
+        _this.sekolah_id = data.sekolah ? data.sekolah.sekolah_id : null;
+        _this.ada_pengguna = data.length > 0 ? false : true;
       });
     },
     resetRaporMutu: function resetRaporMutu(sekolah_id) {
@@ -42842,112 +42849,145 @@ var render = function() {
                     _vm._v(" "),
                     _c(
                       "tbody",
-                      _vm._l(_vm.all_pengguna.data, function(pengguna, index) {
-                        return _c("tr", { key: pengguna.pengguna_id }, [
-                          _c(
-                            "td",
-                            {
-                              staticClass: "text-center",
-                              attrs: { width: "50" }
-                            },
-                            [_vm._v(_vm._s(index + 1))]
-                          ),
-                          _vm._v(" "),
-                          _c("td", [_vm._v(_vm._s(pengguna.nama))]),
-                          _vm._v(" "),
-                          _c("td", [_vm._v(_vm._s(pengguna.email))]),
-                          _vm._v(" "),
-                          _c("td", { staticClass: "text-center" }, [
-                            _vm._v(
-                              "\n                                " +
-                                _vm._s(
-                                  pengguna.peran ? pengguna.peran.nama : "-"
-                                ) +
-                                "\n                                "
-                            )
-                          ]),
-                          _vm._v(" "),
-                          _c(
-                            "td",
-                            {
-                              directives: [
-                                {
-                                  name: "show",
-                                  rawName: "v-show",
-                                  value: pengguna.peran_id == 10,
-                                  expression: "pengguna.peran_id == 10"
-                                }
-                              ],
-                              staticClass: "text-center"
-                            },
-                            [
+                      [
+                        _vm._l(_vm.all_pengguna.data, function(
+                          pengguna,
+                          index
+                        ) {
+                          return _c("tr", { key: pengguna.pengguna_id }, [
+                            _c(
+                              "td",
+                              {
+                                staticClass: "text-center",
+                                attrs: { width: "50" }
+                              },
+                              [_vm._v(_vm._s(index + 1))]
+                            ),
+                            _vm._v(" "),
+                            _c("td", [_vm._v(_vm._s(pengguna.nama))]),
+                            _vm._v(" "),
+                            _c("td", [_vm._v(_vm._s(pengguna.email))]),
+                            _vm._v(" "),
+                            _c("td", { staticClass: "text-center" }, [
                               _vm._v(
                                 "\n                                " +
                                   _vm._s(
-                                    pengguna.rekap_kemajuan_count >= 618
-                                      ? "Selesai"
-                                      : "Belum Selesai"
+                                    pengguna.peran ? pengguna.peran.nama : "-"
                                   ) +
                                   "\n                                "
                               )
-                            ]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "td",
-                            {
-                              directives: [
-                                {
-                                  name: "show",
-                                  rawName: "v-show",
-                                  value: pengguna.peran_id == 53,
-                                  expression: "pengguna.peran_id == 53"
-                                }
-                              ],
-                              staticClass: "text-center"
-                            },
-                            [
-                              _vm._v(
-                                "\n                                " +
-                                  _vm._s(
-                                    pengguna.rekap_kemajuan_count >= 498
-                                      ? "Selesai"
-                                      : "Belum Selesai"
-                                  ) +
-                                  "\n                                "
-                              )
-                            ]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "td",
-                            {
-                              staticClass: "text-center",
-                              attrs: { width: "200" }
-                            },
-                            [
-                              _c("div", { staticClass: "btn-group" }, [
-                                _c(
-                                  "button",
+                            ]),
+                            _vm._v(" "),
+                            _c(
+                              "td",
+                              {
+                                directives: [
                                   {
-                                    staticClass: "btn btn-danger",
-                                    on: {
-                                      click: function($event) {
-                                        return _vm.isiInstrumen(
-                                          pengguna.pengguna_id,
-                                          pengguna.sekolah_id
-                                        )
-                                      }
-                                    }
-                                  },
-                                  [_vm._v("Isi Instrumen")]
+                                    name: "show",
+                                    rawName: "v-show",
+                                    value: pengguna.peran_id == 10,
+                                    expression: "pengguna.peran_id == 10"
+                                  }
+                                ],
+                                staticClass: "text-center"
+                              },
+                              [
+                                _vm._v(
+                                  "\n                                " +
+                                    _vm._s(
+                                      pengguna.rekap_kemajuan_count >= 618
+                                        ? "Selesai"
+                                        : "Belum Selesai"
+                                    ) +
+                                    "\n                                "
                                 )
-                              ])
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "td",
+                              {
+                                directives: [
+                                  {
+                                    name: "show",
+                                    rawName: "v-show",
+                                    value: pengguna.peran_id == 53,
+                                    expression: "pengguna.peran_id == 53"
+                                  }
+                                ],
+                                staticClass: "text-center"
+                              },
+                              [
+                                _vm._v(
+                                  "\n                                " +
+                                    _vm._s(
+                                      pengguna.rekap_kemajuan_count >= 498
+                                        ? "Selesai"
+                                        : "Belum Selesai"
+                                    ) +
+                                    "\n                                "
+                                )
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "td",
+                              {
+                                staticClass: "text-center",
+                                attrs: { width: "200" }
+                              },
+                              [
+                                _c("div", { staticClass: "btn-group" }, [
+                                  _c(
+                                    "button",
+                                    {
+                                      staticClass: "btn btn-danger",
+                                      on: {
+                                        click: function($event) {
+                                          return _vm.isiInstrumen(
+                                            pengguna.pengguna_id,
+                                            pengguna.sekolah_id
+                                          )
+                                        }
+                                      }
+                                    },
+                                    [_vm._v("Isi Instrumen")]
+                                  )
+                                ])
+                              ]
+                            )
+                          ])
+                        }),
+                        _vm._v(" "),
+                        _c(
+                          "tr",
+                          {
+                            directives: [
+                              {
+                                name: "show",
+                                rawName: "v-show",
+                                value: _vm.ada_pengguna,
+                                expression: "ada_pengguna"
+                              }
                             ]
-                          )
-                        ])
-                      }),
-                      0
+                          },
+                          [
+                            _c(
+                              "td",
+                              {
+                                staticClass: "text-center",
+                                attrs: { colspan: "7" }
+                              },
+                              [
+                                _vm._v(
+                                  "\n                                    Sekolah tidak terdaftar untuk menggunakan aplikasi ini !!!\n                                "
+                                )
+                              ]
+                            )
+                          ]
+                        )
+                      ],
+                      2
                     )
                   ]
                 )
