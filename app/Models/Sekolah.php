@@ -100,4 +100,8 @@ class Sekolah extends Model
     {
         return $this->hasMany('App\Instalasi', null, 'sekolah_id');
     }
+    public function bentuk_pendidikan()
+    {
+        return $this->belongsTo('App\Models\Bentuk_pendidikan', 'bentuk_pendidikan_id', 'bentuk_pendidikan_id');
+    }
 }

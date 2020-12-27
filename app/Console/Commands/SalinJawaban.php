@@ -43,9 +43,9 @@ class SalinJawaban extends Command
     {
         $pengguna_id = $this->argument('pengguna_id');
         $sekolah_id = $this->argument('sekolah_id');
-        $all_jawaban = Storage::get('jawaban.json');
+        $user = Pengguna::with(['sekolah.bentuk_pendidikan'])->find($pengguna_id);
+        $all_jawaban = Storage::get('jawaban_'.strtolower($user->sekolah->bentuk_pendidikan->nama).'.json');
         $all_jawaban = json_decode($all_jawaban);
-        $user = Pengguna::find($pengguna_id);
         $token = JWTAuth::fromUser($user);
         DB::table('log.login')->insert([
             'login_id' => Str::uuid(),

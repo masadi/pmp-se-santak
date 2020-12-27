@@ -86,7 +86,10 @@ class EdsController extends Controller
     }
     public function salin_jawaban(Request $request){
         Artisan::call('salin:jawaban', ['pengguna_id' => $request->pengguna_id, $request->sekolah_id]);
-        $response = Http::get('http://localhost:1746/api/HitungRekapKemajuan?start=0&limit=20&pengguna_id='.$request->pengguna_id.'&load_children=1&tingkat_instrumen=1&tahun_ajaran_id=2020&tahun=2020&sekolah_id='.$request->sekolah_id.'&jenjang=SMP&responden=guru&instrumen_id=bfbb3d49-87ed-4c49-96d5-5f9fb2daccce&media_id=1&kelompok_kode=[%22A%22,+%22B%22,+%22C%22,+%22D%22,+%22E%22,+%22F%22,+%22G%22,+%22H%22]');
+        $pengguna = Pengguna::with(['sekolah.bentuk_pendidikan'])->find($request->pengguna_id);
+        $responden = ($pengguna->peran_id == 10) ? 'kepsek' : 'guru';
+        $response = Http::get('http://localhost:1746/api/HitungRekapKemajuan?start=0&limit=20&pengguna_id='.$request->pengguna_id.'&load_children=1&tingkat_instrumen=1&tahun_ajaran_id=2020&tahun=2020&sekolah_id='.$request->sekolah_id.'&jenjang='.$pengguna->sekolah->bentuk_pendidikan->nama.'&responden='.$responden.'&instrumen_id=bfbb3d49-87ed-4c49-96d5-5f9fb2daccce&media_id=1&kelompok_kode=[%22A%22,+%22B%22,+%22C%22,+%22D%22,+%22E%22,+%22F%22,+%22G%22,+%22H%22]');
+        //localhost:1746/api/HitungRekapKemajuan?start=0&limit=20&pengguna_id=4eec83e0-d25b-11e4-bda8-57236925ae80&load_children=1&tingkat_instrumen=1&tahun_ajaran_id=2020&tahun=2020&sekolah_id=297ef003-0282-4a62-8776-eed40edf9c9b&jenjang=SMA&responden=kepsek&instrumen_id=bfbb3d49-87ed-4c49-96d5-5f9fb2daccce&media_id=1&kelompok_kode=[%22A%22,+%22B%22,+%22C%22,+%22D%22,+%22E%22,+%22F%22,+%22G%22,+%22H%22]
         $jawaban_utama = self::simpanJawabanUtama($request);
         return response()->json(['status' => 'success', 'pengguna_id' => $request->pengguna_id, 'response' => $response, 'title' => 'Instrumen berhasil disimpan']);
     }
