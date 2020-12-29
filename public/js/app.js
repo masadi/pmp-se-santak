@@ -42895,7 +42895,7 @@ var render = function() {
                                 _vm._v(
                                   "\n                                " +
                                     _vm._s(
-                                      pengguna.rekap_kemajuan_count >= 618
+                                      pengguna.rekap_kemajuan_count >= 595
                                         ? "Selesai"
                                         : "Belum Selesai"
                                     ) +

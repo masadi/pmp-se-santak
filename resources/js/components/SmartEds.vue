@@ -27,7 +27,7 @@
                                     {{ pengguna.peran ? pengguna.peran.nama : "-" }}
                                     </td>
                                     <td class="text-center" v-show="pengguna.peran_id == 10">
-                                    {{ pengguna.rekap_kemajuan_count >= 618 ? "Selesai" : "Belum Selesai" }}
+                                    {{ pengguna.rekap_kemajuan_count >= 595 ? "Selesai" : "Belum Selesai" }}
                                     </td>
                                     <td class="text-center" v-show="pengguna.peran_id == 53">
                                     {{ pengguna.rekap_kemajuan_count >= 498 ? "Selesai" : "Belum Selesai" }}
